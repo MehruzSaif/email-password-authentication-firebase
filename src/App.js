@@ -1,24 +1,24 @@
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { getAuth } from "firebase/auth";
 import app from './firebase.init';
-import Form from "./firebase.init";
-import Button from 'react-bootstrap/Button';
+import { Button, Form } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const auth = getAuth(app);
 
 function App() {
-  const handleEmailBlur = event => { //event
-    console.log(event.target.value);
+  const handleEmailBlur = e => { //event
+    console.log(e.target.value);
   }
 
-  const handlePasswordBlur = event => {
-    console.log(event.target.value);
+  const handlePasswordBlur = e => {
+    console.log(e.target.value);
   }
 
-  const handleFromSubmit = event => {
+  const handleFromSubmit = e => {
     console.log('form submitted');
-    event.preventDefault();
+    e.preventDefault();
   }
 
   return (
