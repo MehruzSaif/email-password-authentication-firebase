@@ -1,33 +1,50 @@
-import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { getAuth } from "firebase/auth";
 import app from './firebase.init';
+import Form from "./firebase.init";
+import Button from 'react-bootstrap/Button';
 
 const auth = getAuth(app);
 
 function App() {
-  const handleEmailBlur = e => { //event
-    console.log(e.target.value);
+  const handleEmailBlur = event => { //event
+    console.log(event.target.value);
   }
 
-  const handlePasswordBlur = e => {
-    console.log(e.target.value);
+  const handlePasswordBlur = event => {
+    console.log(event.target.value);
   }
 
-  const handleFromSubmit = e => {
+  const handleFromSubmit = event => {
     console.log('form submitted');
-    e.preventDefault();
+    event.preventDefault();
   }
 
   return (
     <div className="App">
-      <form onSubmit={handleFromSubmit}>
-        <input onBlur={handleEmailBlur} type="email" name='' id='1'/>
-        <br/>
-        <input onBlur={handlePasswordBlur} type="password" name='' id='2' />
-        <br/>
-        <input type="submit" value="Login" />
-      </form>
+
+      <Form>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control type="email" placeholder="Enter email" />
+          <Form.Text className="text-muted">
+            We'll never share your email with anyone else.
+          </Form.Text>
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" placeholder="Password" />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          <Form.Check type="checkbox" label="Check me out" />
+        </Form.Group>
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
+
     </div>
   );
 }
