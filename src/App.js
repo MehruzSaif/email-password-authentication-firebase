@@ -4,8 +4,6 @@ import app from './firebase.init';
 import { Button, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
-import { createRenderer } from 'react-dom/test-utils';
-
 
 const auth = getAuth(app);
 
