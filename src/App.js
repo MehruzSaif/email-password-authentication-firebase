@@ -7,10 +7,10 @@ import { useState } from 'react';
 
 const auth = getAuth(app);
 
-const [email, setEmail] = useState('');
-const [password, setPassword] = useState('');
-
 function App() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const handleEmailBlur = e => { //event
     setEmail(e.target.value);
   }
@@ -21,13 +21,13 @@ function App() {
 
   const handleFromSubmit = e => {
     createUserWithEmailAndPassword(auth, email, password)
-    .then(result => {
-      const user = result.user;
-      console.log(user);
-    })
-    .catch(error => {
-      console.log(error);
-    })
+      .then(result => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch(error => {
+        console.error(error);
+      })
     e.preventDefault();
   }
 
