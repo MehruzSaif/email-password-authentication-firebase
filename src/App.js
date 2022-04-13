@@ -11,6 +11,7 @@ function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [validated, setValidated] = useState(false);
+  const [error, setError] = useState('');
 
   const handleEmailBlur = e => { //event
     setEmail(e.target.value);
@@ -21,15 +22,21 @@ function App() {
   }
 
   const handleFromSubmit = e => {
-
+    e.preventDefault();
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
-      e.preventDefault();
+
       e.stopPropagation();
       return;
     }
 
+    if (!/(?=.*?[#?!@$%^&*-])/.test(password)) {
+      setError('Password should contain at least one special character');
+      return;
+    }
+
     setValidated(true);
+    setError('');
 
     createUserWithEmailAndPassword(auth, email, password)
       .then(result => {
@@ -68,6 +75,9 @@ function App() {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
           </Form.Group>
+
+          <p className='text-danger'>{error}</p>
+
           <Button variant="primary" type="submit">
             Submit
           </Button>
