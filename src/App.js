@@ -10,6 +10,7 @@ const auth = getAuth(app);
 function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [validated, setValidated] = useState(false);
 
   const handleEmailBlur = e => { //event
     setEmail(e.target.value);
@@ -20,6 +21,16 @@ function App() {
   }
 
   const handleFromSubmit = e => {
+
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+
+    setValidated(true);
+
     createUserWithEmailAndPassword(auth, email, password)
       .then(result => {
         const user = result.user;
@@ -36,18 +47,24 @@ function App() {
       <div className='registration w-50 mx-auto mt-4'>
         <h2 className='text-primary'>Please Register!</h2>
 
-        <Form onSubmit={handleFromSubmit}>
+        <Form noValidate validated={validated} onSubmit={handleFromSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
-            <Form.Control onBlur={handleEmailBlur} type="email" placeholder="Enter email" />
+            <Form.Control onBlur={handleEmailBlur} type="email" placeholder="Enter email" required />
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.
             </Form.Text>
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid state.
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control onBlur={handlePasswordBlur} type="password" placeholder="Password" />
+            <Form.Control onBlur={handlePasswordBlur} type="password" placeholder="Password" required />
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid state.
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
           </Form.Group>
